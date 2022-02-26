@@ -1,0 +1,23 @@
+# Source: https://github.com/elastic/beats/blob/8.0/deploy/docker/filebeat.docker.yml
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+# With this processor, no error occurs
+
+#processors:
+#  - rename:
+#      fields:
+#        - from: "source"
+#          to: "source_file"
+#      ignore_missing: true
+#      fail_on_error: false
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS}'
